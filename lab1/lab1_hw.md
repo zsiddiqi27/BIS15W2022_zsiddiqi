@@ -1,7 +1,7 @@
 ---
 title: "Lab 1 Homework"
-author: "Please Add Your Name Here"
-date: "2021-12-27"
+author: "Zayna Siddiqi"
+date: "2022-01-05"
 output:
   html_document: 
     theme: spacelab
@@ -20,10 +20,46 @@ Make sure to use the formatting conventions of RMarkdown to make your report nea
 **3. Navigate to my [BIS15L](https://github.com/jmledford3115/BIS15LW2022_jledford) repository on GitHub. Notice that near the bottom there is a nice, clean description of the repository. You want this on your repository! It is built by making edits to the `README.md` file using the RMarkdown conventions. Edit your repository's `README.md` file so that you have a clean informative description, including your email address. Be creative! You don't need to just copy mine. There are lots of examples online.**  
 
 **4. Calculate the following expressions. Be sure to include each one in a separate code chunk.**  
+ 
+
+```r
   + 5 - 3 * 2  
-  + 8 / 2 ** 2  
+```
+
+```
+## [1] -1
+```
   
-**5. Did any of the results in #4 surprise you? Write two programs that calculate each expression such that the result for the first example is 4 and the second example is 16.**    
+
+```r
+  + 8 / 2 ** 2  
+```
+
+```
+## [1] 2
+```
+  
+**5. Did any of the results in #4 surprise you? Write two programs that calculate each expression such that the result for the first example is 4 and the second example is 16.**   
+
+
+```r
+  (5-3) + 2
+```
+
+```
+## [1] 4
+```
+
+
+```r
+  8*2
+```
+
+```
+## [1] 16
+```
+
+
 
 **6. `Objects` in R are a way in which we can store data or operations. We will talk more about objects next week. For now, make a new object `pi` as 3.14159265359 by running the following code chunk. You should now see the object `pi` in the environment window in the top right.**  
 
