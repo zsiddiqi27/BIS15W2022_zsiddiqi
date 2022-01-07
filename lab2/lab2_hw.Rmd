@@ -15,9 +15,14 @@ Make sure to use the formatting conventions of RMarkdown to make your report nea
 
 1. What is a vector in R?  
 
+Vectors are a way of organizing data in R. 
+
 2. What is a data matrix in R?  
 
+Data matrices are a series of stacked vectors, similar to a data table. 
+
 3. Below are data collected by three scientists (Jill, Steve, Susan in order) measuring temperatures of eight hot springs. Run this code chunk to create the vectors.  
+
 ```{r}
 spring_1 <- c(36.25, 35.40, 35.30)
 spring_2 <- c(35.15, 35.35, 33.35)
@@ -30,6 +35,7 @@ spring_8 <- c(36.80, 36.45, 33.15)
 ```
 
 4. Build a data matrix that has the springs as rows and the columns as scientists.  
+
 ```{r}
 spring_data <- c(spring_1, spring_2, spring_3, spring_4, spring_5, spring_6, spring_7, spring_8)
 spring_data
@@ -103,6 +109,12 @@ mean(Jills_data)
 
 10. Use the data matrix to perform one calculation or operation of your interest.
 
+```{r}
+spring_data_matrix <= 32
+```
+```{r}
+spring_data_matrix [spring_data_matrix <= 32]
+```
 
 
 ## Push your final code to GitHub!
