@@ -113,8 +113,14 @@ hbirds
 ## Writing Data to File
 We should save our hbirds data frame so we can use it again later! There are many ways to save data in R, here we write our data frame to a csv file. We use  `row.names = FALSE` to avoid row numbers from printing out. 
 ```{r}
-write.csv(hbirds, "hbirds_data.csv", row.names = FALSE)
+write.csv(hbirds, "data/hbirds_data.csv", row.names = FALSE)
 ```
+
+```{r}
+getwd()
+```
+
+
 
 ## Practice
 Below are data collected by three scientists (Jill, Steve, Susan in order) measuring temperatures of three hot springs near Mono Lake.
@@ -134,12 +140,6 @@ temp_C
 hsprings <- data_frame(name, spring, temp_C)
 hsprings
 ```
-
-
-
-
-
-
 
 2. Change the column titled `name` to `scientist`, leave the other column names the same. Print out the data frame names.  
 ```{r}
@@ -170,7 +170,7 @@ mean(temp_C)
 
 5. Save your hot springs data as a `.csv` file! Do not allow row names. 
 ```{r}
-write.csv(hsprings, "hsprings_data.csv", row.names = FALSE)
+write.csv(hsprings, "data/hsprings_data.csv", row.names = FALSE)
 ```
 
 ## That's it! Take a break and I will see you on Zoom!  
