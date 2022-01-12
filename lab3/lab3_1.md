@@ -1,6 +1,6 @@
 ---
 title: "Data Frames"
-date: "2022-01-12"
+date: "2022-01-13"
 output:
   html_document: 
     theme: spacelab
@@ -212,7 +212,7 @@ getwd()
 ```
 
 ```
-## [1] "/Users/Zayna/Desktop/BIS15W2022_zsiddiqi/lab3"
+## [1] "/Users/Zayna/BIS15W2022_zsiddiqi/lab3"
 ```
 
 
