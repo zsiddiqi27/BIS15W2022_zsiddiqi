@@ -11,7 +11,7 @@
 
 <meta name="author" content="Zayna Siddiqi" />
 
-<meta name="date" content="2022-01-12" />
+<meta name="date" content="2022-01-13" />
 
 <title>Lab 3 Homework</title>
 
@@ -167,7 +167,7 @@ pre code {
 
 <h1 class="title toc-ignore">Lab 3 Homework</h1>
 <h4 class="author">Zayna Siddiqi</h4>
-<h4 class="date">2022-01-12</h4>
+<h4 class="date">2022-01-13</h4>
 
 </div>
 
@@ -184,8 +184,29 @@ pre code {
 <div id="mammals-sleep" class="section level2">
 <h2>Mammals Sleep</h2>
 <ol style="list-style-type: decimal">
-<li><p>For this assignment, we are going to use built-in data on mammal sleep patterns. From which publication are these data taken from? Since the data are built-in you can use the help function in R.</p></li>
-<li><p>Store these data into a new data frame <code>sleep</code>.</p></li>
+<li>For this assignment, we are going to use built-in data on mammal sleep patterns. From which publication are these data taken from? Since the data are built-in you can use the help function in R.</li>
+</ol>
+<pre class="r"><code>msleep</code></pre>
+<pre><code>## # A tibble: 83 × 11
+##    name   genus vore  order conservation sleep_total sleep_rem sleep_cycle awake
+##    &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;              &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt; &lt;dbl&gt;
+##  1 Cheet… Acin… carni Carn… lc                  12.1      NA        NA      11.9
+##  2 Owl m… Aotus omni  Prim… &lt;NA&gt;                17         1.8      NA       7  
+##  3 Mount… Aplo… herbi Rode… nt                  14.4       2.4      NA       9.6
+##  4 Great… Blar… omni  Sori… lc                  14.9       2.3       0.133   9.1
+##  5 Cow    Bos   herbi Arti… domesticated         4         0.7       0.667  20  
+##  6 Three… Brad… herbi Pilo… &lt;NA&gt;                14.4       2.2       0.767   9.6
+##  7 North… Call… carni Carn… vu                   8.7       1.4       0.383  15.3
+##  8 Vespe… Calo… &lt;NA&gt;  Rode… &lt;NA&gt;                 7        NA        NA      17  
+##  9 Dog    Canis carni Carn… domesticated        10.1       2.9       0.333  13.9
+## 10 Roe d… Capr… herbi Arti… lc                   3        NA        NA      21  
+## # … with 73 more rows, and 2 more variables: brainwt &lt;dbl&gt;, bodywt &lt;dbl&gt;</code></pre>
+<pre class="r"><code>?msleep</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Store these data into a new data frame <code>sleep</code>.</li>
+</ol>
+<pre class="r"><code>sleep &lt;- msleep</code></pre>
+<ol start="3" style="list-style-type: decimal">
 <li><p>What are the dimensions of this data frame (variables and observations)? How do you know? Please show the <em>code</em> that you used to determine this below.</p></li>
 <li><p>Are there any NAs in the data? How did you determine this? Please show your code.</p></li>
 <li><p>Show a list of the column names is this data frame.</p></li>

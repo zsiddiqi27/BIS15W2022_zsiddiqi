@@ -1,7 +1,7 @@
 ---
 title: "Dummy Push"
 author: "Zayna Siddiqi"
-date: "2022-01-05"
+date: "2022-01-13"
 output: 
   html_document: 
     keep_md: yes
@@ -24,7 +24,7 @@ getwd()
 ```
 
 ```
-## [1] "/Users/Zayna/Desktop/BIS15W2022_zsiddiqi/lab1"
+## [1] "/Users/Zayna/BIS15W2022_zsiddiqi/lab1"
 ```
 
 ## Session Info
@@ -49,10 +49,11 @@ sessionInfo()
 ## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] compiler_4.1.2  magrittr_2.0.1  fastmap_1.1.0   tools_4.1.2    
-##  [5] htmltools_0.5.2 yaml_2.2.1      jquerylib_0.1.4 stringi_1.7.6  
-##  [9] rmarkdown_2.11  knitr_1.37      stringr_1.4.0   xfun_0.29      
-## [13] digest_0.6.29   rlang_0.4.12    evaluate_0.14
+##  [1] digest_0.6.29   R6_2.5.1        jsonlite_1.7.2  magrittr_2.0.1 
+##  [5] evaluate_0.14   rlang_0.4.12    stringi_1.7.6   jquerylib_0.1.4
+##  [9] bslib_0.3.1     rmarkdown_2.11  tools_4.1.2     stringr_1.4.0  
+## [13] xfun_0.29       yaml_2.2.1      fastmap_1.1.0   compiler_4.1.2 
+## [17] htmltools_0.5.2 knitr_1.37      sass_0.4.0
 ```
 
 ## Load the libraries
