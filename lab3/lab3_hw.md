@@ -57,12 +57,28 @@ sleep <- msleep
 
 3. What are the dimensions of this data frame (variables and observations)? How do you know? Please show the *code* that you used to determine this below.  
 
+```r
+dim(sleep)
+```
+
+```
+## [1] 83 11
+```
 
 4. Are there any NAs in the data? How did you determine this? Please show your code.  
 
 
 5. Show a list of the column names is this data frame.
 
+```r
+names(sleep)
+```
+
+```
+##  [1] "name"         "genus"        "vore"         "order"        "conservation"
+##  [6] "sleep_total"  "sleep_rem"    "sleep_cycle"  "awake"        "brainwt"     
+## [11] "bodywt"
+```
 
 6. How many herbivores are represented in the data?  
 
