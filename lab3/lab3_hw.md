@@ -1,7 +1,7 @@
 ---
 title: "Lab 3 Homework"
 author: "Zayna Siddiqi"
-date: "2022-01-13"
+date: "2022-01-14"
 output:
   html_document: 
     theme: spacelab
@@ -332,18 +332,101 @@ large
 
 8. What is the mean weight for both the small and large mammals?
 
+```r
+weight <- sleep[ 11]
+weight
+```
+
+```
+## # A tibble: 83 × 1
+##     bodywt
+##      <dbl>
+##  1  50    
+##  2   0.48 
+##  3   1.35 
+##  4   0.019
+##  5 600    
+##  6   3.85 
+##  7  20.5  
+##  8   0.045
+##  9  14    
+## 10  14.8  
+## # … with 73 more rows
+```
+
+```r
+mean(small$bodywt)
+```
+
+```
+## [1] 0.2596667
+```
 
 
+
+```r
+mean(large$bodywt)
+```
+
+```
+## [1] 1747.071
+```
 
 9. Using a similar approach as above, do large or small animals sleep longer on average?  
 
+```r
+mean(small$sleep_total)
+```
+
+```
+## [1] 12.65833
+```
 
 
+```r
+mean(large$sleep_total)
+```
+
+```
+## [1] 3.3
+```
 
 10. Which animal is the sleepiest among the entire dataframe?
 
+```r
+max(sleep$sleep_total)
+```
+
+```
+## [1] 19.9
+```
+
+```r
+which.max(sleep$sleep_total)
+```
+
+```
+## [1] 43
+```
+
+```r
+sleepiest_animal <- sleep$name[43]
+sleepiest_animal
+```
+
+```
+## [1] "Little brown bat"
+```
 
 
+```r
+sleepiest_animal <- sleep$name[(which.max(sleep$sleep_total))]
+sleepiest_animal
+```
+
+```
+## [1] "Little brown bat"
+```
 
 ## Push your final code to GitHub!
 Please be sure that you check the `keep md` file in the knit preferences.   

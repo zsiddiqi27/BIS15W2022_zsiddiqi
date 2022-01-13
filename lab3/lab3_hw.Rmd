@@ -73,29 +73,42 @@ large
 
 8. What is the mean weight for both the small and large mammals?
 ```{r}
-
+weight <- sleep[ 11]
+weight
+```
+```{r}
+mean(small$bodywt)
 ```
 
-```{r}
 
+```{r}
+mean(large$bodywt)
 ```
 
 9. Using a similar approach as above, do large or small animals sleep longer on average?  
 ```{r}
-
+mean(small$sleep_total)
 ```
 
 ```{r}
-
+mean(large$sleep_total)
 ```
 
 10. Which animal is the sleepiest among the entire dataframe?
 ```{r}
-
+max(sleep$sleep_total)
+```
+```{r}
+which.max(sleep$sleep_total)
+```
+```{r}
+sleepiest_animal <- sleep$name[43]
+sleepiest_animal
 ```
 
 ```{r}
-
+sleepiest_animal <- sleep$name[(which.max(sleep$sleep_total))]
+sleepiest_animal
 ```
 
 ## Push your final code to GitHub!
