@@ -242,10 +242,18 @@ is.na(sleep)
 ## [83,] FALSE   FALSE  FALSE
 ```
 
+```r
+anyNA(sleep)
+```
+
+```
+## [1] TRUE
+```
+
 5. Show a list of the column names is this data frame.
 
 ```r
-names(sleep)
+names(msleep)
 ```
 
 ```
@@ -256,9 +264,71 @@ names(sleep)
 
 6. How many herbivores are represented in the data?  
 
+```r
+sleep$vore == "herbi"
+```
+
+```
+##  [1] FALSE FALSE  TRUE FALSE  TRUE  TRUE FALSE    NA FALSE  TRUE  TRUE  TRUE
+## [13] FALSE  TRUE FALSE FALSE FALSE FALSE  TRUE FALSE  TRUE FALSE  TRUE  TRUE
+## [25] FALSE FALSE  TRUE FALSE FALSE  TRUE FALSE FALSE  TRUE FALSE  TRUE  TRUE
+## [37] FALSE FALSE  TRUE  TRUE  TRUE  TRUE FALSE  TRUE FALSE  TRUE FALSE  TRUE
+## [49]  TRUE FALSE FALSE FALSE FALSE FALSE    NA FALSE    NA    NA FALSE FALSE
+## [61]  TRUE FALSE    NA  TRUE FALSE FALSE FALSE  TRUE    NA  TRUE  TRUE  TRUE
+## [73]    NA FALSE FALSE  TRUE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE
+```
+
+```r
+sum(sleep$vore == "herbi", na.rm = TRUE)
+```
+
+```
+## [1] 32
+```
 
 7. We are interested in two groups; small and large mammals. Let's define small as less than or equal to 1kg body weight and large as greater than or equal to 200kg body weight. Make two new dataframes (large and small) based on these parameters.
 
+```r
+small <- subset(sleep, bodywt <=1)
+small
+```
+
+```
+## # A tibble: 36 × 11
+##    name   genus vore  order conservation sleep_total sleep_rem sleep_cycle awake
+##    <chr>  <chr> <chr> <chr> <chr>              <dbl>     <dbl>       <dbl> <dbl>
+##  1 Owl m… Aotus omni  Prim… <NA>                17         1.8      NA       7  
+##  2 Great… Blar… omni  Sori… lc                  14.9       2.3       0.133   9.1
+##  3 Vespe… Calo… <NA>  Rode… <NA>                 7        NA        NA      17  
+##  4 Guine… Cavis herbi Rode… domesticated         9.4       0.8       0.217  14.6
+##  5 Chinc… Chin… herbi Rode… domesticated        12.5       1.5       0.117  11.5
+##  6 Star-… Cond… omni  Sori… lc                  10.3       2.2      NA      13.7
+##  7 Afric… Cric… omni  Rode… <NA>                 8.3       2        NA      15.7
+##  8 Lesse… Cryp… omni  Sori… lc                   9.1       1.4       0.15   14.9
+##  9 Big b… Epte… inse… Chir… lc                  19.7       3.9       0.117   4.3
+## 10 Europ… Erin… omni  Erin… lc                  10.1       3.5       0.283  13.9
+## # … with 26 more rows, and 2 more variables: brainwt <dbl>, bodywt <dbl>
+```
+
+
+```r
+large <- subset(sleep, bodywt >=200)
+large
+```
+
+```
+## # A tibble: 7 × 11
+##   name   genus  vore  order conservation sleep_total sleep_rem sleep_cycle awake
+##   <chr>  <chr>  <chr> <chr> <chr>              <dbl>     <dbl>       <dbl> <dbl>
+## 1 Cow    Bos    herbi Arti… domesticated         4         0.7       0.667  20  
+## 2 Asian… Eleph… herbi Prob… en                   3.9      NA        NA      20.1
+## 3 Horse  Equus  herbi Peri… domesticated         2.9       0.6       1      21.1
+## 4 Giraf… Giraf… herbi Arti… cd                   1.9       0.4      NA      22.1
+## 5 Pilot… Globi… carni Ceta… cd                   2.7       0.1      NA      21.4
+## 6 Afric… Loxod… herbi Prob… vu                   3.3      NA        NA      20.7
+## 7 Brazi… Tapir… herbi Peri… vu                   4.4       1         0.9    19.6
+## # … with 2 more variables: brainwt <dbl>, bodywt <dbl>
+```
 
 8. What is the mean weight for both the small and large mammals?
 

@@ -43,20 +43,32 @@ dim(sleep)
 ```{r}
 is.na(sleep)
 ```
+```{r}
+anyNA(sleep)
+```
 
 5. Show a list of the column names is this data frame.
 ```{r}
-names(sleep)
+names(msleep)
 ```
 
 6. How many herbivores are represented in the data?  
 ```{r}
-
+sleep$vore == "herbi"
+```
+```{r}
+sum(sleep$vore == "herbi", na.rm = TRUE)
 ```
 
 7. We are interested in two groups; small and large mammals. Let's define small as less than or equal to 1kg body weight and large as greater than or equal to 200kg body weight. Make two new dataframes (large and small) based on these parameters.
 ```{r}
+small <- subset(sleep, bodywt <=1)
+small
+```
 
+```{r}
+large <- subset(sleep, bodywt >=200)
+large
 ```
 
 8. What is the mean weight for both the small and large mammals?
