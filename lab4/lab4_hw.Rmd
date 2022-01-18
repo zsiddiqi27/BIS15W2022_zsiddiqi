@@ -92,15 +92,41 @@ carnivores <- filter(homerange,trophic.guild=="carnivore")
 carnivores
 ```
 
+```{r}
+herbivores <- filter(homerange,trophic.guild=="herbivore")
+herbivores
+```
 
+**8. Do herbivores or carnivores have, on average, a larger `mean.hra.m2`? Remove any NAs from the data.** 
 
+```{r}
+carnivore_hra <- carnivores[ ,13]
+colMeans(carnivore_hra, na.rm = T)
+```
 
+```{r}
+herbivore_hra <- herbivores[ ,13]
+colMeans(herbivore_hra, na.rm = T)
+```
 
-**8. Do herbivores or carnivores have, on average, a larger `mean.hra.m2`? Remove any NAs from the data.**  
 
 **9. Make a new dataframe `deer` that is limited to the mean mass, log10 mass, family, genus, and species of deer in the database. The family for deer is cervidae. Arrange the data in descending order by log10 mass. Which is the largest deer? What is its common name?**  
 
-**10. As measured by the data, which snake species has the smallest homerange? Show all of your work, please. Look this species up online and tell me about it!** **Snake is found in taxon column**    
+```{r}
+deer <- select(homerange, "family", "genus", "species", "mean.mass.g", "log10.mass")
+```
+```{r}
+deer <- filter(deer, family == "cervidae")
+deer
+```
+
+**10. As measured by the data, which snake species has the smallest homerange? Show all of your work, please. Look this species up online and tell me about it!** **Snake is found in taxon column**  
+
+```{r}
+
+```
+
+
 
 ## Push your final code to GitHub!
 Please be sure that you check the `keep md` file in the knit preferences.   
