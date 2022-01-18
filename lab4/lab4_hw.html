@@ -340,11 +340,105 @@ taxa</code></pre>
 ## 10 marine fishes orangespine unicornfish actino… percif… acanthu… naso   litura…
 ## # … with 559 more rows</code></pre>
 <p><strong>5. The variable <code>taxon</code> identifies the large, common name groups of the species represented in <code>homerange</code>. Make a table the shows the counts for each of these <code>taxon</code>.</strong></p>
+<pre class="r"><code>table(homerange$taxon)</code></pre>
+<pre><code>## 
+##         birds   lake fishes       lizards       mammals marine fishes 
+##           140             9            11           238            90 
+##  river fishes        snakes     tortoises       turtles 
+##            14            41            12            14</code></pre>
 <p><strong>6. The species in <code>homerange</code> are also classified into trophic guilds. How many species are represented in each trophic guild.</strong></p>
+<pre class="r"><code>table(homerange$trophic.guild)</code></pre>
+<pre><code>## 
+## carnivore herbivore 
+##       342       227</code></pre>
 <p><strong>7. Make two new data frames, one which is restricted to carnivores and another that is restricted to herbivores.</strong></p>
+<pre class="r"><code>carnivores &lt;- filter(homerange,trophic.guild==&quot;carnivore&quot;)
+carnivores</code></pre>
+<pre><code>## # A tibble: 342 × 24
+##    taxon   common.name   class   order  family genus species primarymethod N    
+##    &lt;fct&gt;   &lt;chr&gt;         &lt;chr&gt;   &lt;fct&gt;  &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;         &lt;chr&gt;
+##  1 lake f… american eel  actino… angui… angui… angu… rostra… telemetry     16   
+##  2 river … blacktail re… actino… cypri… catos… moxo… poecil… mark-recaptu… &lt;NA&gt; 
+##  3 river … central ston… actino… cypri… cypri… camp… anomal… mark-recaptu… 20   
+##  4 river … rosyside dace actino… cypri… cypri… clin… fundul… mark-recaptu… 26   
+##  5 river … longnose dace actino… cypri… cypri… rhin… catara… mark-recaptu… 17   
+##  6 river … muskellunge   actino… esoci… esoci… esox  masqui… telemetry     5    
+##  7 marine… pollack       actino… gadif… gadid… poll… pollac… telemetry     2    
+##  8 marine… saithe        actino… gadif… gadid… poll… virens  telemetry     2    
+##  9 marine… giant treval… actino… perci… caran… cara… ignobi… telemetry     4    
+## 10 lake f… rock bass     actino… perci… centr… ambl… rupest… mark-recaptu… 16   
+## # … with 332 more rows, and 15 more variables: mean.mass.g &lt;dbl&gt;,
+## #   log10.mass &lt;dbl&gt;, alternative.mass.reference &lt;chr&gt;, mean.hra.m2 &lt;dbl&gt;,
+## #   log10.hra &lt;dbl&gt;, hra.reference &lt;chr&gt;, realm &lt;chr&gt;, thermoregulation &lt;chr&gt;,
+## #   locomotion &lt;chr&gt;, trophic.guild &lt;chr&gt;, dimension &lt;dbl&gt;, preymass &lt;dbl&gt;,
+## #   log10.preymass &lt;dbl&gt;, PPMR &lt;dbl&gt;, prey.size.reference &lt;chr&gt;</code></pre>
+<pre class="r"><code>herbivores &lt;- filter(homerange,trophic.guild==&quot;herbivore&quot;)
+herbivores</code></pre>
+<pre><code>## # A tibble: 227 × 24
+##    taxon  common.name   class   order  family  genus species primarymethod N    
+##    &lt;fct&gt;  &lt;chr&gt;         &lt;chr&gt;   &lt;fct&gt;  &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;         &lt;chr&gt;
+##  1 marin… lined surgeo… actino… perci… acanth… acan… lineat… direct obser… &lt;NA&gt; 
+##  2 marin… orangespine … actino… perci… acanth… naso  litura… telemetry     8    
+##  3 marin… bluespine un… actino… perci… acanth… naso  unicor… telemetry     7    
+##  4 marin… redlip blenny actino… perci… blenni… ophi… atlant… direct obser… 20   
+##  5 marin… bermuda chub  actino… perci… kyphos… kyph… sectat… telemetry     11   
+##  6 marin… cherubfish    actino… perci… pomaca… cent… argi    direct obser… &lt;NA&gt; 
+##  7 marin… damselfish    actino… perci… pomace… chro… chromis direct obser… &lt;NA&gt; 
+##  8 marin… twinspot dam… actino… perci… pomace… chry… biocel… direct obser… 18   
+##  9 marin… wards damsel  actino… perci… pomace… poma… wardi   direct obser… &lt;NA&gt; 
+## 10 marin… australian g… actino… perci… pomace… steg… apical… direct obser… &lt;NA&gt; 
+## # … with 217 more rows, and 15 more variables: mean.mass.g &lt;dbl&gt;,
+## #   log10.mass &lt;dbl&gt;, alternative.mass.reference &lt;chr&gt;, mean.hra.m2 &lt;dbl&gt;,
+## #   log10.hra &lt;dbl&gt;, hra.reference &lt;chr&gt;, realm &lt;chr&gt;, thermoregulation &lt;chr&gt;,
+## #   locomotion &lt;chr&gt;, trophic.guild &lt;chr&gt;, dimension &lt;dbl&gt;, preymass &lt;dbl&gt;,
+## #   log10.preymass &lt;dbl&gt;, PPMR &lt;dbl&gt;, prey.size.reference &lt;chr&gt;</code></pre>
 <p><strong>8. Do herbivores or carnivores have, on average, a larger <code>mean.hra.m2</code>? Remove any NAs from the data.</strong></p>
+<pre class="r"><code>carnivore_hra &lt;- carnivores[ ,13]
+colMeans(carnivore_hra, na.rm = T)</code></pre>
+<pre><code>## mean.hra.m2 
+##    13039918</code></pre>
+<pre class="r"><code>herbivore_hra &lt;- herbivores[ ,13]
+colMeans(herbivore_hra, na.rm = T)</code></pre>
+<pre><code>## mean.hra.m2 
+##    34137012</code></pre>
 <p><strong>9. Make a new dataframe <code>deer</code> that is limited to the mean mass, log10 mass, family, genus, and species of deer in the database. The family for deer is cervidae. Arrange the data in descending order by log10 mass. Which is the largest deer? What is its common name?</strong></p>
+<pre class="r"><code>deer &lt;- select(homerange, &quot;family&quot;, &quot;genus&quot;, &quot;species&quot;, &quot;mean.mass.g&quot;, &quot;log10.mass&quot;)</code></pre>
+<pre class="r"><code>deer &lt;- filter(deer, family == &quot;cervidae&quot;)
+deer</code></pre>
+<pre><code>## # A tibble: 12 × 5
+##    family   genus      species     mean.mass.g log10.mass
+##    &lt;chr&gt;    &lt;chr&gt;      &lt;chr&gt;             &lt;dbl&gt;      &lt;dbl&gt;
+##  1 cervidae alces      alces           307227.       5.49
+##  2 cervidae axis       axis             62823.       4.80
+##  3 cervidae capreolus  capreolus        24050.       4.38
+##  4 cervidae cervus     elaphus         234758.       5.37
+##  5 cervidae cervus     nippon           29450.       4.47
+##  6 cervidae dama       dama             71450.       4.85
+##  7 cervidae muntiacus  reevesi          13500.       4.13
+##  8 cervidae odocoileus hemionus         53864.       4.73
+##  9 cervidae odocoileus virginianus      87884.       4.94
+## 10 cervidae ozotoceros bezoarticus      35000.       4.54
+## 11 cervidae pudu       puda              7500.       3.88
+## 12 cervidae rangifer   tarandus        102059.       5.01</code></pre>
 <p><strong>10. As measured by the data, which snake species has the smallest homerange? Show all of your work, please. Look this species up online and tell me about it!</strong> <strong>Snake is found in taxon column</strong></p>
+<pre class="r"><code>snakes &lt;- filter(homerange, taxon==&quot;snakes&quot;)
+snakes &lt;- select(snakes, &quot;common.name&quot;,&quot;genus&quot;,&quot;species&quot;,&quot;mean.hra.m2&quot;)
+arrange(snakes, mean.hra.m2)</code></pre>
+<pre><code>## # A tibble: 41 × 4
+##    common.name          genus       species      mean.hra.m2
+##    &lt;chr&gt;                &lt;chr&gt;       &lt;chr&gt;              &lt;dbl&gt;
+##  1 namaqua dwarf adder  bitis       schneideri          200 
+##  2 eastern worm snake   carphopis   viridis             253 
+##  3 butlers garter snake thamnophis  butleri             600 
+##  4 western worm snake   carphopis   vermis              700 
+##  5 snubnosed viper      vipera      latastei           2400 
+##  6 chinese pit viper    gloydius    shedaoensis        2614.
+##  7 ringneck snake       diadophis   punctatus          6476 
+##  8 cottonmouth          agkistrodon piscivorous       10655 
+##  9 redbacked ratsnake   oocatochus  rufodorsatus      15400 
+## 10 gopher snake         pituophis   catenifer         17400 
+## # … with 31 more rows</code></pre>
+<p>B.schneideri is the smallest species of the genus Bitis and possibly the world’s smallest viperid.</p>
 </div>
 <div id="push-your-final-code-to-github" class="section level2">
 <h2>Push your final code to GitHub!</h2>
