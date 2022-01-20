@@ -10,7 +10,7 @@
 
 
 
-<meta name="date" content="2022-01-14" />
+<meta name="date" content="2022-01-20" />
 
 <title>Transforming data 2: filter()</title>
 
@@ -241,7 +241,7 @@ div.tocify {
 
 
 <h1 class="title toc-ignore">Transforming data 2: <code>filter()</code></h1>
-<h4 class="date">2022-01-14</h4>
+<h4 class="date">2022-01-20</h4>
 
 </div>
 
@@ -291,7 +291,6 @@ div.tocify {
 ## [11] &quot;max. life&quot;    &quot;litter size&quot;  &quot;litters/year&quot;</code></pre>
 <p>To keep things tidy, I am going to rename the variables in the mammals data.</p>
 <pre class="r"><code>mammals &lt;- rename(mammals, genus=Genus, wean_mass=&quot;wean mass&quot;, max_life=&quot;max. life&quot;, litter_size=&quot;litter size&quot;, litters_per_year=&quot;litters/year&quot;)</code></pre>
-<p>install.packages(janitor) library(“janitor”)</p>
 <pre class="r"><code>#install.packages(&quot;janitor&quot;)
 library(&quot;janitor&quot;)</code></pre>
 <pre><code>## 
