@@ -114,8 +114,20 @@ Reference: Koerner SE, Poulsen JR, Blanchard EJ, Okouyi J, Clark CJ. Vertebrate 
 9. (2 points) Load `IvindoData_DryadVersion.csv` and use the function(s) of your choice to get an idea of the overall structure. Change the variables `HuntCat` and `LandUse` to factors.
 
 ```{r}
-
+gabon <- readr::read_csv(file = "data/IvindoData_DryadVersion.csv")
 ```
+```{r}
+glimpse(gabon)
+```
+```{r}
+gabon <- janitor::clean_names(gabon)
+names(gabon)
+```
+```{r}
+gabon$hunt_cat <- as.factor(gabon$hunt_cat)
+gabon$land_use <- as.factor(gabon$land_use)
+```
+
 
 10. (4 points) For the transects with high and moderate hunting intensity, how does the average diversity of birds and mammals compare?
 
