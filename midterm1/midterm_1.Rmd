@@ -83,7 +83,7 @@ elephants %>%
 anyNA(elephants)
 ```
 ```{r}
-mean(elephants$age)
+mean(elephants$age, na.rm=T)
 ```
 
 7. (2 points) How does the average age and height of elephants compare by sex?
@@ -97,11 +97,15 @@ elephants %>%
 
 8. (2 points) How does the average height of elephants compare by sex for individuals over 20 years old. Include the min and max height as well as the number of individuals in the sample as part of your analysis. 
 
-
 ```{r}
-
+elephants %>% 
+  group_by(sex) %>% 
+  filter(age > 20) %>% 
+  summarize(mean_height_old = mean(height),
+            min_height_old = min(height),
+            max_height_old = max(height),
+            total = n())
 ```
-
 
 For the next series of questions, we will use data from a study on vertebrate community composition and impacts from defaunation in [Gabon, Africa](https://en.wikipedia.org/wiki/Gabon). One thing to notice is that the data include 24 separate transects. Each transect represents a path through different forest management areas.  
 
@@ -109,8 +113,26 @@ Reference: Koerner SE, Poulsen JR, Blanchard EJ, Okouyi J, Clark CJ. Vertebrate 
 
 9. (2 points) Load `IvindoData_DryadVersion.csv` and use the function(s) of your choice to get an idea of the overall structure. Change the variables `HuntCat` and `LandUse` to factors.
 
+```{r}
+
+```
+
 10. (4 points) For the transects with high and moderate hunting intensity, how does the average diversity of birds and mammals compare?
 
-11. (4 points) One of the conclusions in the study is that the relative abundance of animals drops off the closer you get to a village. Let's try to reconstruct this (without the statistics). How does the relative abundance (RA) of apes, birds, elephants, monkeys, rodents, and ungulates compare between sites that are less than 3km from a village to sites that are greater than 25km from a village? The variable `Distance` measures the distance of the transect from the nearest village. Hint: try using the `across` operator.  
+```{r}
+
+```
+
+
+11. (4 points) One of the conclusions in the study is that the relative abundance of animals drops off the closer you get to a village. Let's try to reconstruct this (without the statistics). How does the relative abundance (RA) of apes, birds, elephants, monkeys, rodents, and ungulates compare between sites that are less than 3km from a village to sites that are greater than 25km from a village? The variable `Distance` measures the distance of the transect from the nearest village. Hint: try using the `across` operator. 
+
+```{r}
+
+```
 
 12. (4 points) Based on your interest, do one exploratory analysis on the `gabon` data of your choice. This analysis needs to include a minimum of two functions in `dplyr.`
+
+```{r}
+
+```
+
