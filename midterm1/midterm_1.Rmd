@@ -36,15 +36,72 @@ In the midterm 1 folder there is a second folder called `data`. Inside the `data
 
 3. (2 points) Please load these data as a new object called `elephants`. Use the function(s) of your choice to get an idea of the structure of the data. Be sure to show the class of each variable.
 
+```{r}
+getwd()
+```
+
+```{r}
+elephants <- readr::read_csv(file = "data/ElephantsMF.csv")
+```
+```{r}
+glimpse(elephants)
+```
+
+```{r}
+names(elephants)
+```
+
+
+
+
 4. (2 points) Change the names of the variables to lower case and change the class of the variable `sex` to a factor.
+```{r}
+elephants <- janitor::clean_names(elephants)
+names(elephants)
+```
+
+```{r}
+elephants$sex <- as.factor(elephants$sex)
+```
+
 
 5. (2 points) How many male and female elephants are represented in the data?
 
+```{r}
+library(janitor)
+```
+
+```{r}
+elephants %>% 
+  tabyl(sex)
+```
+
+
 6. (2 points) What is the average age all elephants in the data?
+
+```{r}
+anyNA(elephants)
+```
+```{r}
+mean(elephants$age)
+```
 
 7. (2 points) How does the average age and height of elephants compare by sex?
 
-8. (2 points) How does the average height of elephants compare by sex for individuals over 20 years old. Include the min and max height as well as the number of individuals in the sample as part of your analysis.  
+```{r}
+elephants %>%
+  group_by(sex) %>% 
+  summarize(mean_age = mean(age),
+            mean_height = mean(height))
+```
+
+8. (2 points) How does the average height of elephants compare by sex for individuals over 20 years old. Include the min and max height as well as the number of individuals in the sample as part of your analysis. 
+
+
+```{r}
+
+```
+
 
 For the next series of questions, we will use data from a study on vertebrate community composition and impacts from defaunation in [Gabon, Africa](https://en.wikipedia.org/wiki/Gabon). One thing to notice is that the data include 24 separate transects. Each transect represents a path through different forest management areas.  
 

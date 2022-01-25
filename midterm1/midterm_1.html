@@ -11,7 +11,7 @@
 
 <meta name="author" content="Please Add Your Name Here" />
 
-<meta name="date" content="2022-01-24" />
+<meta name="date" content="2022-01-26" />
 
 <title>Midterm 1</title>
 
@@ -167,7 +167,7 @@ pre code {
 
 <h1 class="title toc-ignore">Midterm 1</h1>
 <h4 class="author">Please Add Your Name Here</h4>
-<h4 class="date">2022-01-24</h4>
+<h4 class="date">2022-01-26</h4>
 
 </div>
 
@@ -200,12 +200,69 @@ pre code {
 </ol>
 <p>In the midterm 1 folder there is a second folder called <code>data</code>. Inside the <code>data</code> folder, there is a .csv file called <code>ElephantsMF</code>. These data are from Phyllis Lee, Stirling University, and are related to Lee, P., et al. (2013), “Enduring consequences of early experiences: 40-year effects on survival and success among African elephants (Loxodonta africana),” Biology Letters, 9: 20130011. <a href="https://www.kaggle.com/mostafaelseidy/elephantsmf">kaggle</a>.</p>
 <ol start="3" style="list-style-type: decimal">
-<li><p>(2 points) Please load these data as a new object called <code>elephants</code>. Use the function(s) of your choice to get an idea of the structure of the data. Be sure to show the class of each variable.</p></li>
-<li><p>(2 points) Change the names of the variables to lower case and change the class of the variable <code>sex</code> to a factor.</p></li>
-<li><p>(2 points) How many male and female elephants are represented in the data?</p></li>
-<li><p>(2 points) What is the average age all elephants in the data?</p></li>
-<li><p>(2 points) How does the average age and height of elephants compare by sex?</p></li>
-<li><p>(2 points) How does the average height of elephants compare by sex for individuals over 20 years old. Include the min and max height as well as the number of individuals in the sample as part of your analysis.</p></li>
+<li>(2 points) Please load these data as a new object called <code>elephants</code>. Use the function(s) of your choice to get an idea of the structure of the data. Be sure to show the class of each variable.</li>
+</ol>
+<pre class="r"><code>getwd()</code></pre>
+<pre><code>## [1] &quot;/Users/Zayna/BIS15W2022_zsiddiqi/midterm1&quot;</code></pre>
+<pre class="r"><code>elephants &lt;- readr::read_csv(file = &quot;data/ElephantsMF.csv&quot;)</code></pre>
+<pre><code>## Rows: 288 Columns: 3</code></pre>
+<pre><code>## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: &quot;,&quot;
+## chr (1): Sex
+## dbl (2): Age, Height</code></pre>
+<pre><code>## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<pre class="r"><code>glimpse(elephants)</code></pre>
+<pre><code>## Rows: 288
+## Columns: 3
+## $ Age    &lt;dbl&gt; 1.40, 17.50, 12.75, 11.17, 12.67, 12.67, 12.25, 12.17, 28.17, 1…
+## $ Height &lt;dbl&gt; 120.00, 227.00, 235.00, 210.00, 220.00, 189.00, 225.00, 204.00,…
+## $ Sex    &lt;chr&gt; &quot;M&quot;, &quot;M&quot;, &quot;M&quot;, &quot;M&quot;, &quot;M&quot;, &quot;M&quot;, &quot;M&quot;, &quot;M&quot;, &quot;M&quot;, &quot;M&quot;, &quot;M&quot;, &quot;M&quot;, &quot;M&quot;…</code></pre>
+<pre class="r"><code>names(elephants)</code></pre>
+<pre><code>## [1] &quot;Age&quot;    &quot;Height&quot; &quot;Sex&quot;</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>(2 points) Change the names of the variables to lower case and change the class of the variable <code>sex</code> to a factor.</li>
+</ol>
+<pre class="r"><code>elephants &lt;- janitor::clean_names(elephants)
+names(elephants)</code></pre>
+<pre><code>## [1] &quot;age&quot;    &quot;height&quot; &quot;sex&quot;</code></pre>
+<pre class="r"><code>elephants$sex &lt;- as.factor(elephants$sex)</code></pre>
+<ol start="5" style="list-style-type: decimal">
+<li>(2 points) How many male and female elephants are represented in the data?</li>
+</ol>
+<pre class="r"><code>library(janitor)</code></pre>
+<pre><code>## 
+## Attaching package: &#39;janitor&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:stats&#39;:
+## 
+##     chisq.test, fisher.test</code></pre>
+<pre class="r"><code>elephants %&gt;% 
+  tabyl(sex)</code></pre>
+<pre><code>##  sex   n   percent
+##    F 150 0.5208333
+##    M 138 0.4791667</code></pre>
+<ol start="6" style="list-style-type: decimal">
+<li>(2 points) What is the average age all elephants in the data?</li>
+</ol>
+<pre class="r"><code>anyNA(elephants)</code></pre>
+<pre><code>## [1] FALSE</code></pre>
+<pre class="r"><code>mean(elephants$age)</code></pre>
+<pre><code>## [1] 10.97132</code></pre>
+<ol start="7" style="list-style-type: decimal">
+<li>(2 points) How does the average age and height of elephants compare by sex?</li>
+</ol>
+<pre class="r"><code>elephants %&gt;%
+  group_by(sex) %&gt;% 
+  summarize(mean_age = mean(age),
+            mean_height = mean(height))</code></pre>
+<pre><code>## # A tibble: 2 × 3
+##   sex   mean_age mean_height
+##   &lt;fct&gt;    &lt;dbl&gt;       &lt;dbl&gt;
+## 1 F        12.8         190.
+## 2 M         8.95        185.</code></pre>
+<ol start="8" style="list-style-type: decimal">
+<li>(2 points) How does the average height of elephants compare by sex for individuals over 20 years old. Include the min and max height as well as the number of individuals in the sample as part of your analysis.</li>
 </ol>
 <p>For the next series of questions, we will use data from a study on vertebrate community composition and impacts from defaunation in <a href="https://en.wikipedia.org/wiki/Gabon">Gabon, Africa</a>. One thing to notice is that the data include 24 separate transects. Each transect represents a path through different forest management areas.</p>
 <p>Reference: Koerner SE, Poulsen JR, Blanchard EJ, Okouyi J, Clark CJ. Vertebrate community composition and diversity declines along a defaunation gradient radiating from rural villages in Gabon. <em>Journal of Applied Ecology</em>. 2016. This paper, along with a description of the variables is included inside the midterm 1 folder.</p>
