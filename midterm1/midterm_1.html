@@ -9,7 +9,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="Please Add Your Name Here" />
+<meta name="author" content="Zayna Siddiqi" />
 
 <meta name="date" content="2022-01-26" />
 
@@ -166,7 +166,7 @@ pre code {
 
 
 <h1 class="title toc-ignore">Midterm 1</h1>
-<h4 class="author">Please Add Your Name Here</h4>
+<h4 class="author">Zayna Siddiqi</h4>
 <h4 class="date">2022-01-26</h4>
 
 </div>
@@ -190,6 +190,12 @@ pre code {
 <pre><code>## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 ## x dplyr::filter() masks stats::filter()
 ## x dplyr::lag()    masks stats::lag()</code></pre>
+<pre class="r"><code>library(janitor)</code></pre>
+<pre><code>## 
+## Attaching package: &#39;janitor&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:stats&#39;:
+## 
+##     chisq.test, fisher.test</code></pre>
 </div>
 <div id="questions" class="section level2">
 <h2>Questions</h2>
@@ -231,12 +237,6 @@ names(elephants)</code></pre>
 <ol start="5" style="list-style-type: decimal">
 <li>(2 points) How many male and female elephants are represented in the data?</li>
 </ol>
-<pre class="r"><code>library(janitor)</code></pre>
-<pre><code>## 
-## Attaching package: &#39;janitor&#39;</code></pre>
-<pre><code>## The following objects are masked from &#39;package:stats&#39;:
-## 
-##     chisq.test, fisher.test</code></pre>
 <pre class="r"><code>elephants %&gt;% 
   tabyl(sex)</code></pre>
 <pre><code>##  sex   n   percent

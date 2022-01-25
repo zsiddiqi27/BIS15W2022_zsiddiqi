@@ -1,6 +1,6 @@
 ---
 title: "Midterm 1"
-author: "Please Add Your Name Here"
+author: "Zayna Siddiqi"
 date: "`r Sys.Date()`"
 output:
   html_document:
@@ -23,6 +23,7 @@ This exam is due by 12:00p on Thursday, January 27.
 If you plan to use any other libraries to complete this assignment then you should load them here.
 ```{r}
 library(tidyverse)
+library(janitor)
 ```
 
 ## Questions  
@@ -66,10 +67,6 @@ elephants$sex <- as.factor(elephants$sex)
 
 
 5. (2 points) How many male and female elephants are represented in the data?
-
-```{r}
-library(janitor)
-```
 
 ```{r}
 elephants %>% 
