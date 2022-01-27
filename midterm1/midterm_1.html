@@ -11,7 +11,7 @@
 
 <meta name="author" content="Zayna Siddiqi" />
 
-<meta name="date" content="2022-01-26" />
+<meta name="date" content="2022-01-27" />
 
 <title>Midterm 1</title>
 
@@ -167,7 +167,7 @@ pre code {
 
 <h1 class="title toc-ignore">Midterm 1</h1>
 <h4 class="author">Zayna Siddiqi</h4>
-<h4 class="date">2022-01-26</h4>
+<h4 class="date">2022-01-27</h4>
 
 </div>
 
@@ -337,7 +337,20 @@ names(gabon)</code></pre>
 <pre class="r"><code>gabon$hunt_cat &lt;- as.factor(gabon$hunt_cat)
 gabon$land_use &lt;- as.factor(gabon$land_use)</code></pre>
 <ol start="10" style="list-style-type: decimal">
-<li><p>(4 points) For the transects with high and moderate hunting intensity, how does the average diversity of birds and mammals compare?</p></li>
+<li>(4 points) For the transects with high and moderate hunting intensity, how does the average diversity of birds and mammals compare?</li>
+</ol>
+<pre class="r"><code>gabon %&gt;% 
+  group_by(hunt_cat) %&gt;% 
+  filter(hunt_cat == &quot;High&quot;| hunt_cat == &quot;Moderate&quot;) %&gt;% 
+  summarize(mean_diversity_birds = mean(diversity_bird_species),
+            mean_diversity_mammals = mean(diversity_mammal_species),
+            total = n())</code></pre>
+<pre><code>## # A tibble: 2 × 4
+##   hunt_cat mean_diversity_birds mean_diversity_mammals total
+##   &lt;fct&gt;                   &lt;dbl&gt;                  &lt;dbl&gt; &lt;int&gt;
+## 1 High                     1.66                   1.74     7
+## 2 Moderate                 1.62                   1.68     8</code></pre>
+<ol start="11" style="list-style-type: decimal">
 <li><p>(4 points) One of the conclusions in the study is that the relative abundance of animals drops off the closer you get to a village. Let’s try to reconstruct this (without the statistics). How does the relative abundance (RA) of apes, birds, elephants, monkeys, rodents, and ungulates compare between sites that are less than 3km from a village to sites that are greater than 25km from a village? The variable <code>Distance</code> measures the distance of the transect from the nearest village. Hint: try using the <code>across</code> operator.</p></li>
 <li><p>(4 points) Based on your interest, do one exploratory analysis on the <code>gabon</code> data of your choice. This analysis needs to include a minimum of two functions in <code>dplyr.</code></p></li>
 </ol>
