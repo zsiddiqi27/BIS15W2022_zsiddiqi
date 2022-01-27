@@ -61,7 +61,12 @@ Wikipedia's definition of [data science](https://en.wikipedia.org/wiki/Data_scie
 
 1. (2 points) Consider the definition of data science above. Although we are only part-way through the quarter, what specific elements of data science do you feel we have practiced? Provide at least one specific example.  
 
+**We have practiced how to extract information, summarize, and conduct statistical analysis on structured and unstructured data. An example of a data set that we studied thoroughly would be the mammals data where we learned how to deal with NA's and then conducted several statistical analyses in order to make conclusions about the data.** 
+
 2. (2 points) What is the most helpful or interesting thing you have learned so far in BIS 15L? What is something that you think needs more work or practice?  
+
+**The most helpful thing that I learned from BIS 15L is how to extract specific data from a huge data set and transform it by using functions like select(), filter(), and mutate(). I think something that I need more practice in would be dealing with NA's and making noisy data easier to work with.** 
+
 
 In the midterm 1 folder there is a second folder called `data`. Inside the `data` folder, there is a .csv file called `ElephantsMF`. These data are from Phyllis Lee, Stirling University, and are related to Lee, P., et al. (2013), "Enduring consequences of early experiences: 40-year effects on survival and success among African elephants (Loxodonta africana)," Biology Letters, 9: 20130011. [kaggle](https://www.kaggle.com/mostafaelseidy/elephantsmf).  
 
@@ -120,7 +125,19 @@ names(elephants)
 ```
 
 
+```r
+summary(elephants)
+```
 
+```
+##       Age            Height           Sex           
+##  Min.   : 0.01   Min.   : 75.46   Length:288        
+##  1st Qu.: 4.58   1st Qu.:160.75   Class :character  
+##  Median : 9.46   Median :200.00   Mode  :character  
+##  Mean   :10.97   Mean   :187.68                     
+##  3rd Qu.:16.50   3rd Qu.:221.09                     
+##  Max.   :32.17   Max.   :304.06
+```
 
 4. (2 points) Change the names of the variables to lower case and change the class of the variable `sex` to a factor.
 
@@ -325,8 +342,104 @@ gabon %>%
 11. (4 points) One of the conclusions in the study is that the relative abundance of animals drops off the closer you get to a village. Let's try to reconstruct this (without the statistics). How does the relative abundance (RA) of apes, birds, elephants, monkeys, rodents, and ungulates compare between sites that are less than 3km from a village to sites that are greater than 25km from a village? The variable `Distance` measures the distance of the transect from the nearest village. Hint: try using the `across` operator. 
 
 
+```r
+gabon %>% 
+  group_by(distance) %>% 
+  filter(distance < 3) %>% 
+  summarize(across(contains("ra"), mean, na.rm=T))
+```
+
+```
+## # A tibble: 2 × 8
+##   distance transect_id ra_apes ra_birds ra_elephant ra_monkeys ra_rodent
+##      <dbl>       <dbl>   <dbl>    <dbl>       <dbl>      <dbl>     <dbl>
+## 1     2.7           15    0        85.0        0.29       9.09      3.74
+## 2     2.92          27    0.24     68.2        0         25.6       4.05
+## # … with 1 more variable: ra_ungulate <dbl>
+```
+
+
+```r
+gabon %>% 
+  group_by(distance) %>% 
+  filter(distance > 25) %>% 
+  summarize(across(contains("ra"), mean, na.rm=T))
+```
+
+```
+## # A tibble: 1 × 8
+##   distance transect_id ra_apes ra_birds ra_elephant ra_monkeys ra_rodent
+##      <dbl>       <dbl>   <dbl>    <dbl>       <dbl>      <dbl>     <dbl>
+## 1     26.8          24    4.91     31.6           0       54.1      1.29
+## # … with 1 more variable: ra_ungulate <dbl>
+```
 
 12. (4 points) Based on your interest, do one exploratory analysis on the `gabon` data of your choice. This analysis needs to include a minimum of two functions in `dplyr.`
 
 
+```r
+glimpse(gabon)
+```
 
+```
+## Rows: 24
+## Columns: 26
+## $ transect_id              <dbl> 1, 2, 2, 3, 4, 5, 6, 7, 8, 9, 13, 14, 15, 16,…
+## $ distance                 <dbl> 7.14, 17.31, 18.32, 20.85, 15.95, 17.47, 24.0…
+## $ hunt_cat                 <fct> Moderate, None, None, None, None, None, None,…
+## $ num_households           <dbl> 54, 54, 29, 29, 29, 29, 29, 54, 25, 73, 46, 5…
+## $ land_use                 <fct> Park, Park, Park, Logging, Park, Park, Park, …
+## $ veg_rich                 <dbl> 16.67, 15.75, 16.88, 12.44, 17.13, 16.50, 14.…
+## $ veg_stems                <dbl> 31.20, 37.44, 32.33, 29.39, 36.00, 29.22, 31.…
+## $ veg_liana                <dbl> 5.78, 13.25, 4.75, 9.78, 13.25, 12.88, 8.38, …
+## $ veg_dbh                  <dbl> 49.57, 34.59, 42.82, 36.62, 41.52, 44.07, 51.…
+## $ veg_canopy               <dbl> 3.78, 3.75, 3.43, 3.75, 3.88, 2.50, 4.00, 4.0…
+## $ veg_understory           <dbl> 2.89, 3.88, 3.00, 2.75, 3.25, 3.00, 2.38, 2.7…
+## $ ra_apes                  <dbl> 1.87, 0.00, 4.49, 12.93, 0.00, 2.48, 3.78, 6.…
+## $ ra_birds                 <dbl> 52.66, 52.17, 37.44, 59.29, 52.62, 38.64, 42.…
+## $ ra_elephant              <dbl> 0.00, 0.86, 1.33, 0.56, 1.00, 0.00, 1.11, 0.4…
+## $ ra_monkeys               <dbl> 38.59, 28.53, 41.82, 19.85, 41.34, 43.29, 46.…
+## $ ra_rodent                <dbl> 4.22, 6.04, 1.06, 3.66, 2.52, 1.83, 3.10, 1.2…
+## $ ra_ungulate              <dbl> 2.66, 12.41, 13.86, 3.71, 2.53, 13.75, 3.10, …
+## $ rich_all_species         <dbl> 22, 20, 22, 19, 20, 22, 23, 19, 19, 19, 21, 2…
+## $ evenness_all_species     <dbl> 0.793, 0.773, 0.740, 0.681, 0.811, 0.786, 0.8…
+## $ diversity_all_species    <dbl> 2.452, 2.314, 2.288, 2.006, 2.431, 2.429, 2.5…
+## $ rich_bird_species        <dbl> 11, 10, 11, 8, 8, 10, 11, 11, 11, 9, 11, 11, …
+## $ evenness_bird_species    <dbl> 0.732, 0.704, 0.688, 0.559, 0.799, 0.771, 0.8…
+## $ diversity_bird_species   <dbl> 1.756, 1.620, 1.649, 1.162, 1.660, 1.775, 1.9…
+## $ rich_mammal_species      <dbl> 11, 10, 11, 11, 12, 12, 12, 8, 8, 10, 10, 11,…
+## $ evenness_mammal_species  <dbl> 0.736, 0.705, 0.650, 0.619, 0.736, 0.694, 0.7…
+## $ diversity_mammal_species <dbl> 1.764, 1.624, 1.558, 1.484, 1.829, 1.725, 1.9…
+```
+
+
+```r
+gabon %>% 
+  tabyl(land_use)
+```
+
+```
+##  land_use  n   percent
+##   Logging 13 0.5416667
+##   Neither  4 0.1666667
+##      Park  7 0.2916667
+```
+
+
+```r
+gabon %>% 
+  group_by(land_use) %>% 
+  filter(land_use == "Park" | land_use == "Logging") %>% 
+  summarize(across(contains("diversity"), mean, na.rm=T),
+            across(contains("evenness"), mean, na.rm=T))
+```
+
+```
+## # A tibble: 2 × 7
+##   land_use diversity_all_sp… diversity_bird_s… diversity_mamma… evenness_all_sp…
+##   <fct>                <dbl>             <dbl>            <dbl>            <dbl>
+## 1 Logging               2.23              1.56             1.68            0.753
+## 2 Park                  2.43              1.77             1.75            0.787
+## # … with 2 more variables: evenness_bird_species <dbl>,
+## #   evenness_mammal_species <dbl>
+```

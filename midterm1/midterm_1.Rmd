@@ -31,7 +31,12 @@ Wikipedia's definition of [data science](https://en.wikipedia.org/wiki/Data_scie
 
 1. (2 points) Consider the definition of data science above. Although we are only part-way through the quarter, what specific elements of data science do you feel we have practiced? Provide at least one specific example.  
 
+**We have practiced how to extract information, summarize, and conduct statistical analysis on structured and unstructured data. An example of a data set that we studied thoroughly would be the mammals data where we learned how to deal with NA's and then conducted several statistical analyses in order to make conclusions about the data.** 
+
 2. (2 points) What is the most helpful or interesting thing you have learned so far in BIS 15L? What is something that you think needs more work or practice?  
+
+**The most helpful thing that I learned from BIS 15L is how to extract specific data from a huge data set and transform it by using functions like select(), filter(), and mutate(). I think something that I need more practice in would be dealing with NA's and making noisy data easier to work with.** 
+
 
 In the midterm 1 folder there is a second folder called `data`. Inside the `data` folder, there is a .csv file called `ElephantsMF`. These data are from Phyllis Lee, Stirling University, and are related to Lee, P., et al. (2013), "Enduring consequences of early experiences: 40-year effects on survival and success among African elephants (Loxodonta africana)," Biology Letters, 9: 20130011. [kaggle](https://www.kaggle.com/mostafaelseidy/elephantsmf).  
 
@@ -52,8 +57,9 @@ glimpse(elephants)
 names(elephants)
 ```
 
-
-
+```{r}
+summary(elephants)
+```
 
 4. (2 points) Change the names of the variables to lower case and change the class of the variable `sex` to a factor.
 ```{r}
@@ -140,12 +146,34 @@ gabon %>%
 11. (4 points) One of the conclusions in the study is that the relative abundance of animals drops off the closer you get to a village. Let's try to reconstruct this (without the statistics). How does the relative abundance (RA) of apes, birds, elephants, monkeys, rodents, and ungulates compare between sites that are less than 3km from a village to sites that are greater than 25km from a village? The variable `Distance` measures the distance of the transect from the nearest village. Hint: try using the `across` operator. 
 
 ```{r}
+gabon %>% 
+  group_by(distance) %>% 
+  filter(distance < 3) %>% 
+  summarize(across(contains("ra"), mean, na.rm=T))
+```
 
+```{r}
+gabon %>% 
+  group_by(distance) %>% 
+  filter(distance > 25) %>% 
+  summarize(across(contains("ra"), mean, na.rm=T))
 ```
 
 12. (4 points) Based on your interest, do one exploratory analysis on the `gabon` data of your choice. This analysis needs to include a minimum of two functions in `dplyr.`
 
 ```{r}
-
+glimpse(gabon)
 ```
 
+```{r}
+gabon %>% 
+  tabyl(land_use)
+```
+
+```{r}
+gabon %>% 
+  group_by(land_use) %>% 
+  filter(land_use == "Park" | land_use == "Logging") %>% 
+  summarize(across(contains("diversity"), mean, na.rm=T),
+            across(contains("evenness"), mean, na.rm=T))
+```
