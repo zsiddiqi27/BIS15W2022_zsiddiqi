@@ -77,11 +77,11 @@ ggplot(data=iris, mapping=aes(x=Species, y=Petal.Length))+geom_boxplot()
 ## Practice
 1. Use the iris data to build a scatterplot that compares sepal length vs. sepal width. Use the cheat sheet or help to find the correct `geom_` for a scatterplot.
 ```{r}
-
+ggplot(data=iris, mapping=aes(x=Sepal.Length, y=Sepal.Width))
 ```
 
 ```{r}
-
+ggplot(data=iris, mapping=aes(x=Sepal.Length, y=Sepal.Width))+geom_point()
 ```
 
 
@@ -99,11 +99,12 @@ homerange <- read_csv(here("lab9", "data", "Tamburelloetal_HomeRangeDatabase.csv
 ## Practice
 1. What is the structure of the `homerange` data? Does it have any NA's? Is it tidy? Do a quick exploratory analysis of your choice below.
 ```{r}
-
+glimpse(homerange)
 ```
 
 ```{r}
-
+homerange %>% 
+  summarise_all(~(sum(is.na(.))))
 ```
 
 
