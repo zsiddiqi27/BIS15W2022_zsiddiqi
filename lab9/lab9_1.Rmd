@@ -136,7 +136,8 @@ ggplot(data=homerange, mapping=aes(x=log10.mass, y=log10.hra)) +
 ### Practice
 1. What is the relationship between log10.hra and log10.preymass? What do you notice about how ggplot treats NA's?
 ```{r}
-
+ggplot(data = homerange, mapping = aes(x = log10.hra, y = log10.preymass)) +
+  geom_point()
 ```
 
 ```{r}
@@ -192,7 +193,8 @@ homerange %>%
 ## Practice
 1. Filter the `homerange` data to include `mammals` only.
 ```{r}
-
+homerange %>% 
+  filter(taxon=="mammals") 
 ```
 
 ```{r}
@@ -206,7 +208,10 @@ homerange %>%
 
 2. Are there more herbivores or carnivores in mammals? Make a bar plot that shows their relative numbers.
 ```{r}
-
+homerange %>% 
+  filter(taxon=="mammals") %>% 
+  ggplot(aes(x=trophic.guild)) + 
+  geom_bar()
 ```
 
 ```{r}
@@ -216,20 +221,13 @@ homerange %>%
 
 3. Make a bar plot that shows the masses of the top 10 smallest mammals.
 ```{r}
-
+names(homerange)
 ```
 
 ```{r}
 
 ```
 
-```{r}
-
-```
-
-```{r}
-
-```
 
 ## That's it, let's take a break!   
 
