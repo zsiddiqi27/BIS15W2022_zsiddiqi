@@ -1,7 +1,7 @@
 ---
 title: "Lab 7 Homework"
 author: "Joel Ledford"
-date: "2022-02-01"
+date: "2022-02-03"
 output:
   html_document: 
     theme: spacelab
@@ -28093,7 +28093,7 @@ naniar::miss_var_summary(amphibio_data)
 amniota_data_new%>% 
   group_by(class) %>% 
   select(class, egg_mass_g) %>% 
-  naniar::miss_var_summary(class=T)
+  naniar::miss_var_summary(order=T)
 ```
 
 ```
@@ -28110,19 +28110,47 @@ amniota_data_new%>%
 
 ```r
 amphibio_data%>% 
-  group_by(Species) %>% 
-  select(Species) %>% 
-  naniar::miss_var_summary(Species=T)
+  select(Fos,Ter,Arb,Aqu)%>% 
+  naniar::miss_var_summary(order=T)
 ```
 
 ```
-## # A tibble: 0 × 3
-## # Groups:   Species [0]
-## # … with 3 variables: Species <chr>, n_miss <int>, pct_miss <dbl>
+## # A tibble: 4 × 3
+##   variable n_miss pct_miss
+##   <chr>     <int>    <dbl>
+## 1 Fos        6053     89.3
+## 2 Arb        4347     64.2
+## 3 Aqu        2810     41.5
+## 4 Ter        1104     16.3
 ```
 
 **10. Now that we know how NA's are represented in the `amniota` data, how would you load the data such that the values which represent NA's are automatically converted?**
 
+```r
+amniota_data_clean <- readr::read_csv(file = "data/amniota.csv", na = c("-999"))
+```
+
+```
+## Warning: One or more parsing issues, see `problems()` for details
+```
+
+```
+## Rows: 21322 Columns: 36
+```
+
+```
+## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: ","
+## chr  (6): class, order, family, genus, species, common_name
+## dbl (28): female_maturity_d, litter_or_clutch_size_n, litters_or_clutches_pe...
+## lgl  (2): subspecies, female_body_mass_at_maturity_g
+```
+
+```
+## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+```
 
 ## Push your final code to GitHub!
 Please be sure that you check the `keep md` file in the knit preferences.  

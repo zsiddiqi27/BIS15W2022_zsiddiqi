@@ -106,20 +106,19 @@ naniar::miss_var_summary(amphibio_data)
 amniota_data_new%>% 
   group_by(class) %>% 
   select(class, egg_mass_g) %>% 
-  naniar::miss_var_summary(class=T)
+  naniar::miss_var_summary(order=T)
 ```
 
 **9. The `amphibio` data have variables that classify species as fossorial (burrowing), terrestrial, aquatic, or arboreal.Calculate the number of NA's in each of these variables. Do you think that the authors intend us to think that there are NA's in these columns or could they represent something else? Explain.**
 ```{r}
 amphibio_data%>% 
-  group_by(Species) %>% 
-  select(Species) %>% 
-  naniar::miss_var_summary(Species=T)
+  select(Fos,Ter,Arb,Aqu)%>% 
+  naniar::miss_var_summary(order=T)
 ```
 
 **10. Now that we know how NA's are represented in the `amniota` data, how would you load the data such that the values which represent NA's are automatically converted?**
 ```{r}
-
+amniota_data_clean <- readr::read_csv(file = "data/amniota.csv", na = c("-999"))
 ```
 
 ## Push your final code to GitHub!
