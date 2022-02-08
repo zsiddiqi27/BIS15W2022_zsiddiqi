@@ -54,30 +54,68 @@ The quotes show the folder structure from the root directory.
 ```{r}
 sydneybeaches <-read_csv(here("lab8", "data", "sydneybeaches.csv")) %>% janitor::clean_names()
 ```
+```{r}
+names(sydneybeaches)
+```
+
+
+
 
 2. Are these data "tidy" per the definitions of the tidyverse? How do you know? Are they in wide or long format?
 
+**The data is tidy as everything seems to be organized in columns and rows according to categories.The data is in long format as the sites are repeated based on the observation date**
 
 3. We are only interested in the variables site, date, and enterococci_cfu_100ml. Make a new object focused on these variables only. Name the object `sydneybeaches_long`
+```{r}
+sydneybeaches_long <- sydneybeaches%>% 
+  select(site, date, enterococci_cfu_100ml)
+```
 
 
 4. Pivot the data such that the dates are column names and each beach only appears once. Name the object `sydneybeaches_wide`
+```{r}
+sydneybeaches_wide <- sydneybeaches_long %>% 
+  pivot_wider(names_from = date, values_from = enterococci_cfu_100ml)
+```
 
 
 5. Pivot the data back so that the dates are data and not column names.
-
+```{r}
+sydneybeaches_wide%>% 
+  pivot_longer(-site, names_to = "date", values_to = "enterococci_cfu_100ml")
+```
 
 6. We haven't dealt much with dates yet, but separate the date into columns day, month, and year. Do this on the `sydneybeaches_long` data.
+```{r}
+sydneybeaches_long %>% 
+  separate(date, into=c("day", "month", "year"), sep="/")
+```
 
 
 7. What is the average `enterococci_cfu_100ml` by year for each beach. Think about which data you will use- long or wide.
 
+```{r}
+means_data <- sydneybeaches_long %>% 
+  separate(date, into=c("day", "month", "year"), sep = "/") %>% 
+  group_by(site, year) %>% 
+  summarise(mean_enterococci_cfu_100ml = mean(enterococci_cfu_100ml, na.rm=T))
+```
 
 8. Make the output from question 7 easier to read by pivoting it to wide format.
-
+```{r}
+means_data %>% 
+  pivot_wider(names_from = site, values_from = mean_enterococci_cfu_100ml)
+```
 
 9. What was the most polluted beach in 2018?
 
+```{r}
+means_data %>% 
+  pivot_wider(names_from = site, values_from = mean_enterococci_cfu_100ml) %>% 
+  filter(year == 2018) %>% 
+  pivot_longer(-year, names_to = "site", values_to = "mean_enterococci_cfu_100ml") %>% 
+  arrange(desc(mean_enterococci_cfu_100ml))
+```
 
 10. Please complete the class project survey at: [BIS 15L Group Project](https://forms.gle/H2j69Z3ZtbLH3efW6)
 
