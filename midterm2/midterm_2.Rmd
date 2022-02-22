@@ -138,15 +138,23 @@ life_expectancy_data_tidy %>%
 ```{r}
 life_expectancy_data_tidy %>% 
   filter(year=="1920" | year=="2020") %>% 
-  group_by(country)
-  
-
+  pivot_wider(names_from = year,
+              names_prefix = "yr_",
+              values_from = life_expectancy) %>% 
+  mutate(delta=yr_2020-yr_1920) %>% 
+  arrange(desc(delta)) %>% 
+  top_n(5)
 ```
 
 
 
 5. (3 points) Make a plot that shows the change over the past 100 years for the country with the biggest improvement in life expectancy. Be sure to add appropriate aesthetics to make the plot clean and clear. Once you have made the plot, do a little internet searching and see if you can discover what historical event may have contributed to this remarkable change.  
 
+```{r}
+life_expectancy_data_tidy %>% 
+  filter(country=="Kuwait" & (year=="1920"|year=="2020")) %>% 
+  ggplot(aes(x=year, y=life_expectancy, group=1)) + geom_line()
+```
 
 
 ## Population Growth
@@ -154,14 +162,22 @@ life_expectancy_data_tidy %>%
 
 ```{r}
 population_data_tidy %>% 
-  filter(year>=1920 & year<=2020) %>% 
-  group_by(country) %>% 
-  summarise(mean_population_data = mean(population,na.rm=T)) %>% 
-  arrange(desc(mean_population_data)) %>% 
+  filter(year=="1920" | year=="2020") %>% 
+  pivot_wider(names_from = year,
+              names_prefix = "yr_",
+              values_from = population) %>% 
+  mutate(delta=yr_2020-yr_1920) %>% 
+  arrange(desc(delta)) %>% 
   top_n(5)
 ```
 
 7. (4 points) Produce a plot that shows the 5 countries that have had the highest population growth over the past 100 years (1920-2020). Which countries appear to have had exponential growth?  
+
+
+
+
+
+
 
 
 ## Income
@@ -171,10 +187,12 @@ The units used for income are gross domestic product per person adjusted for dif
 
 ```{r}
 income_data_tidy %>% 
-  filter(year>=1920 & year<=2020) %>% 
-  group_by(country) %>% 
-  summarise(mean_income_data = mean(income,na.rm=T)) %>% 
-  arrange(desc(mean_income_data)) %>% 
+  filter(year=="1920" | year=="2020") %>% 
+  pivot_wider(names_from = year,
+              names_prefix = "yr_",
+              values_from = income) %>% 
+  mutate(delta=yr_2020-yr_1920) %>% 
+  arrange(desc(delta)) %>% 
   top_n(5)
 ```
 
