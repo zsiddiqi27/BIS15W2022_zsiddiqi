@@ -1,9 +1,10 @@
 ---
 title: "BIS 15L Midterm 2"
+author: "Zayna Siddiqi"
 output:
-  html_document: 
-    theme: spacelab
-    keep_md: yes
+html_document: 
+theme: spacelab
+keep_md: yes
 ---
 
 ```{r setup, include=FALSE}
@@ -24,13 +25,105 @@ For this assignment, we are going to use data from  [gapminder](https://www.gapm
 2. income_per_person_gdppercapita_ppp_inflation_adjusted.csv  
 3. life_expectancy_years.csv  
 
+```{r}
+getwd()
+```
+
+
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+library(RColorBrewer)
+library(paletteer)
+library(janitor)
+library(here)
+```
+
+```{r}
+population_data <- read_csv(here("midterm2", "data", "population_total.csv"))
+population_data
+```
+
+```{r}
+income_data <- read_csv(here("midterm2", "data", "income_per_person_gdppercapita_ppp_inflation_adjusted.csv"))
+income_data
+```
+
+```{r}
+life_expectancy_data <- read_csv(here("midterm2", "data", "life_expectancy_years.csv"))
+life_expectancy_data
+```
+
+
+
+
+
+
 1. (3 points) Once you have an idea of the structure of the data, please make each data set tidy (hint: think back to pivots) and store them as new objects. You will need both the original (wide) and tidy (long) data!  
 
+```{r}
+population_data_tidy <- population_data %>% 
+  pivot_longer(-country, 
+               names_to = "year", 
+               values_to = "n_total"
+               )
+population_data_tidy
+```
+
+```{r}
+income_data_tidy <- income_data %>% 
+  pivot_longer(-country, 
+               names_to = "year", 
+               values_to = "n_total"
+               )
+income_data_tidy
+```
+
+```{r}
+life_expectancy_data_tidy <- life_expectancy_data %>% 
+  pivot_longer(-country, 
+               names_to = "year", 
+               values_to = "n_total"
+               )
+income_data_tidy
+```
+
 2. (1 point) How many different countries are represented in the data? Provide the total number and their names. Since each data set includes different numbers of countries, you will need to do this for each one.  
+
+```{r}
+population_data_tidy %>% 
+  summarise(n_country=n_distinct(country))
+```
+```{r}
+population_data_tidy %>% 
+  count(country)
+```
+```{r}
+income_data_tidy %>% 
+  summarise(n_country=n_distinct(country))
+```
+```{r}
+income_data_tidy %>% 
+  count(country)
+```
+```{r}
+life_expectancy_data_tidy %>% 
+  summarise(n_country=n_distinct(country))
+```
+```{r}
+life_expectancy_data_tidy %>% 
+  count(country)
+```
 
 ## Life Expectancy  
 
 3. (2 points) Let's limit the data to 100 years (1920-2020). For these years, which country has the highest average life expectancy? How about the lowest average life expectancy?  
+
+```{r}
+population_data_limited <- population_data_tidy %>% 
+  filter(year>=1920 & year<=2020) %>% 
+  group_by(country)
+```
+
 
 4. (3 points) Although we can see which country has the highest life expectancy for the past 100 years, we don't know which countries have changed the most. What are the top 5 countries that have experienced the biggest improvement in life expectancy between 1920-2020?  
 
