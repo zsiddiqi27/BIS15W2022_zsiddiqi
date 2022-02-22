@@ -289,63 +289,63 @@ library(here)</code></pre>
 <pre class="r"><code>population_data_tidy &lt;- population_data %&gt;% 
   pivot_longer(-country, 
                names_to = &quot;year&quot;, 
-               values_to = &quot;n_total&quot;
+               values_to = &quot;population&quot;
                )
 population_data_tidy</code></pre>
 <pre><code>## # A tibble: 58,695 × 3
-##    country     year  n_total
-##    &lt;chr&gt;       &lt;chr&gt;   &lt;dbl&gt;
-##  1 Afghanistan 1800  3280000
-##  2 Afghanistan 1801  3280000
-##  3 Afghanistan 1802  3280000
-##  4 Afghanistan 1803  3280000
-##  5 Afghanistan 1804  3280000
-##  6 Afghanistan 1805  3280000
-##  7 Afghanistan 1806  3280000
-##  8 Afghanistan 1807  3280000
-##  9 Afghanistan 1808  3280000
-## 10 Afghanistan 1809  3280000
+##    country     year  population
+##    &lt;chr&gt;       &lt;chr&gt;      &lt;dbl&gt;
+##  1 Afghanistan 1800     3280000
+##  2 Afghanistan 1801     3280000
+##  3 Afghanistan 1802     3280000
+##  4 Afghanistan 1803     3280000
+##  5 Afghanistan 1804     3280000
+##  6 Afghanistan 1805     3280000
+##  7 Afghanistan 1806     3280000
+##  8 Afghanistan 1807     3280000
+##  9 Afghanistan 1808     3280000
+## 10 Afghanistan 1809     3280000
 ## # … with 58,685 more rows</code></pre>
 <pre class="r"><code>income_data_tidy &lt;- income_data %&gt;% 
   pivot_longer(-country, 
                names_to = &quot;year&quot;, 
-               values_to = &quot;n_total&quot;
+               values_to = &quot;income&quot;
                )
 income_data_tidy</code></pre>
 <pre><code>## # A tibble: 46,513 × 3
-##    country     year  n_total
-##    &lt;chr&gt;       &lt;chr&gt;   &lt;dbl&gt;
-##  1 Afghanistan 1800      603
-##  2 Afghanistan 1801      603
-##  3 Afghanistan 1802      603
-##  4 Afghanistan 1803      603
-##  5 Afghanistan 1804      603
-##  6 Afghanistan 1805      603
-##  7 Afghanistan 1806      603
-##  8 Afghanistan 1807      603
-##  9 Afghanistan 1808      603
-## 10 Afghanistan 1809      603
+##    country     year  income
+##    &lt;chr&gt;       &lt;chr&gt;  &lt;dbl&gt;
+##  1 Afghanistan 1800     603
+##  2 Afghanistan 1801     603
+##  3 Afghanistan 1802     603
+##  4 Afghanistan 1803     603
+##  5 Afghanistan 1804     603
+##  6 Afghanistan 1805     603
+##  7 Afghanistan 1806     603
+##  8 Afghanistan 1807     603
+##  9 Afghanistan 1808     603
+## 10 Afghanistan 1809     603
 ## # … with 46,503 more rows</code></pre>
 <pre class="r"><code>life_expectancy_data_tidy &lt;- life_expectancy_data %&gt;% 
   pivot_longer(-country, 
                names_to = &quot;year&quot;, 
-               values_to = &quot;n_total&quot;
+               values_to = &quot;life_expectancy&quot;
                )
-income_data_tidy</code></pre>
-<pre><code>## # A tibble: 46,513 × 3
-##    country     year  n_total
-##    &lt;chr&gt;       &lt;chr&gt;   &lt;dbl&gt;
-##  1 Afghanistan 1800      603
-##  2 Afghanistan 1801      603
-##  3 Afghanistan 1802      603
-##  4 Afghanistan 1803      603
-##  5 Afghanistan 1804      603
-##  6 Afghanistan 1805      603
-##  7 Afghanistan 1806      603
-##  8 Afghanistan 1807      603
-##  9 Afghanistan 1808      603
-## 10 Afghanistan 1809      603
-## # … with 46,503 more rows</code></pre>
+life_expectancy_data_tidy</code></pre>
+<pre><code>## # A tibble: 56,287 × 3
+##    country     year  life_expectancy
+##    &lt;chr&gt;       &lt;chr&gt;           &lt;dbl&gt;
+##  1 Afghanistan 1800             28.2
+##  2 Afghanistan 1801             28.2
+##  3 Afghanistan 1802             28.2
+##  4 Afghanistan 1803             28.2
+##  5 Afghanistan 1804             28.2
+##  6 Afghanistan 1805             28.2
+##  7 Afghanistan 1806             28.1
+##  8 Afghanistan 1807             28.1
+##  9 Afghanistan 1808             28.1
+## 10 Afghanistan 1809             28.1
+## # … with 56,277 more rows</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li>(1 point) How many different countries are represented in the data? Provide the total number and their names. Since each data set includes different numbers of countries, you will need to do this for each one.</li>
 </ol>
@@ -421,27 +421,116 @@ income_data_tidy</code></pre>
 <ol start="3" style="list-style-type: decimal">
 <li>(2 points) Let’s limit the data to 100 years (1920-2020). For these years, which country has the highest average life expectancy? How about the lowest average life expectancy?</li>
 </ol>
-<pre class="r"><code>population_data_limited &lt;- population_data_tidy %&gt;% 
+<pre class="r"><code>life_expectancy_data_tidy %&gt;% 
   filter(year&gt;=1920 &amp; year&lt;=2020) %&gt;% 
-  group_by(country)</code></pre>
+  group_by(country) %&gt;% 
+  summarise(mean_life_expectancy = mean(life_expectancy, na.rm=T)) %&gt;% 
+  arrange(desc(mean_life_expectancy))</code></pre>
+<pre><code>## # A tibble: 187 × 2
+##    country     mean_life_expectancy
+##    &lt;chr&gt;                      &lt;dbl&gt;
+##  1 Andorra                     79.8
+##  2 Sweden                      73.5
+##  3 Norway                      73.2
+##  4 Netherlands                 73.0
+##  5 Dominica                    73.0
+##  6 Iceland                     72.9
+##  7 Australia                   72.7
+##  8 Switzerland                 72.7
+##  9 Denmark                     71.9
+## 10 Canada                      71.8
+## # … with 177 more rows</code></pre>
+<pre class="r"><code>life_expectancy_data_tidy %&gt;% 
+  filter(year&gt;=1920 &amp; year&lt;=2020) %&gt;% 
+  group_by(country) %&gt;% 
+  summarise(mean_life_expectancy = mean(life_expectancy,na.rm=T)) %&gt;% 
+  arrange(mean_life_expectancy)</code></pre>
+<pre><code>## # A tibble: 187 × 2
+##    country                  mean_life_expectancy
+##    &lt;chr&gt;                                   &lt;dbl&gt;
+##  1 Central African Republic                 41.8
+##  2 Mali                                     41.8
+##  3 Ethiopia                                 42.6
+##  4 Sierra Leone                             42.6
+##  5 Guinea-Bissau                            42.6
+##  6 Burundi                                  42.8
+##  7 Malawi                                   42.8
+##  8 Uganda                                   43.3
+##  9 Eritrea                                  43.4
+## 10 Yemen                                    43.6
+## # … with 177 more rows</code></pre>
 <ol start="4" style="list-style-type: decimal">
-<li><p>(3 points) Although we can see which country has the highest life expectancy for the past 100 years, we don’t know which countries have changed the most. What are the top 5 countries that have experienced the biggest improvement in life expectancy between 1920-2020?</p></li>
-<li><p>(3 points) Make a plot that shows the change over the past 100 years for the country with the biggest improvement in life expectancy. Be sure to add appropriate aesthetics to make the plot clean and clear. Once you have made the plot, do a little internet searching and see if you can discover what historical event may have contributed to this remarkable change.</p></li>
+<li>(3 points) Although we can see which country has the highest life expectancy for the past 100 years, we don’t know which countries have changed the most. What are the top 5 countries that have experienced the biggest improvement in life expectancy between 1920-2020?</li>
+</ol>
+<pre class="r"><code>life_expectancy_data_tidy %&gt;% 
+  filter(year==&quot;1920&quot; | year==&quot;2020&quot;) %&gt;% 
+  group_by(country)</code></pre>
+<pre><code>## # A tibble: 374 × 3
+## # Groups:   country [187]
+##    country     year  life_expectancy
+##    &lt;chr&gt;       &lt;chr&gt;           &lt;dbl&gt;
+##  1 Afghanistan 1920             30.6
+##  2 Afghanistan 2020             64.4
+##  3 Albania     1920             35.4
+##  4 Albania     2020             78.6
+##  5 Algeria     1920             29.6
+##  6 Algeria     2020             78.3
+##  7 Andorra     1920             NA  
+##  8 Andorra     2020             NA  
+##  9 Angola      1920             30.4
+## 10 Angola      2020             65.4
+## # … with 364 more rows</code></pre>
+<ol start="5" style="list-style-type: decimal">
+<li>(3 points) Make a plot that shows the change over the past 100 years for the country with the biggest improvement in life expectancy. Be sure to add appropriate aesthetics to make the plot clean and clear. Once you have made the plot, do a little internet searching and see if you can discover what historical event may have contributed to this remarkable change.</li>
 </ol>
 </div>
 <div id="population-growth" class="section level2">
 <h2>Population Growth</h2>
 <ol start="6" style="list-style-type: decimal">
-<li><p>(3 points) Which 5 countries have had the highest population growth over the past 100 years (1920-2020)?</p></li>
-<li><p>(4 points) Produce a plot that shows the 5 countries that have had the highest population growth over the past 100 years (1920-2020). Which countries appear to have had exponential growth?</p></li>
+<li>(3 points) Which 5 countries have had the highest population growth over the past 100 years (1920-2020)?</li>
+</ol>
+<pre class="r"><code>population_data_tidy %&gt;% 
+  filter(year&gt;=1920 &amp; year&lt;=2020) %&gt;% 
+  group_by(country) %&gt;% 
+  summarise(mean_population_data = mean(population,na.rm=T)) %&gt;% 
+  arrange(desc(mean_population_data)) %&gt;% 
+  top_n(5)</code></pre>
+<pre><code>## Selecting by mean_population_data</code></pre>
+<pre><code>## # A tibble: 5 × 2
+##   country       mean_population_data
+##   &lt;chr&gt;                        &lt;dbl&gt;
+## 1 China                   885366337.
+## 2 India                   684613861.
+## 3 United States           211485149.
+## 4 Indonesia               133104950.
+## 5 Russia                  121885149.</code></pre>
+<ol start="7" style="list-style-type: decimal">
+<li>(4 points) Produce a plot that shows the 5 countries that have had the highest population growth over the past 100 years (1920-2020). Which countries appear to have had exponential growth?</li>
 </ol>
 </div>
 <div id="income" class="section level2">
 <h2>Income</h2>
 <p>The units used for income are gross domestic product per person adjusted for differences in purchasing power in international dollars.</p>
 <ol start="8" style="list-style-type: decimal">
-<li><p>(4 points) As in the previous questions, which countries have experienced the biggest growth in per person GDP. Show this as a table and then plot the changes for the top 5 countries. With a bit of research, you should be able to explain the dramatic downturns of the wealthiest economies that occurred during the 1980’s.</p></li>
-<li><p>(3 points) Create three new objects that restrict each data set (life expectancy, population, income) to the years 1920-2020. Hint: I suggest doing this with the long form of your data. Once this is done, merge all three data sets using the code I provide below. You may need to adjust the code depending on how you have named your objects. I called mine <code>life_expectancy_100</code>, <code>population_100</code>, and <code>income_100</code>. For some of you, learning these <code>joins</code> will be important for your project.</p></li>
+<li>(4 points) As in the previous questions, which countries have experienced the biggest growth in per person GDP. Show this as a table and then plot the changes for the top 5 countries. With a bit of research, you should be able to explain the dramatic downturns of the wealthiest economies that occurred during the 1980’s.</li>
+</ol>
+<pre class="r"><code>income_data_tidy %&gt;% 
+  filter(year&gt;=1920 &amp; year&lt;=2020) %&gt;% 
+  group_by(country) %&gt;% 
+  summarise(mean_income_data = mean(income,na.rm=T)) %&gt;% 
+  arrange(desc(mean_income_data)) %&gt;% 
+  top_n(5)</code></pre>
+<pre><code>## Selecting by mean_income_data</code></pre>
+<pre><code>## # A tibble: 5 × 2
+##   country              mean_income_data
+##   &lt;chr&gt;                           &lt;dbl&gt;
+## 1 Brunei                         65573.
+## 2 Qatar                          64526.
+## 3 United Arab Emirates           51337.
+## 4 Kuwait                         43624.
+## 5 Luxembourg                     37956.</code></pre>
+<ol start="9" style="list-style-type: decimal">
+<li>(3 points) Create three new objects that restrict each data set (life expectancy, population, income) to the years 1920-2020. Hint: I suggest doing this with the long form of your data. Once this is done, merge all three data sets using the code I provide below. You may need to adjust the code depending on how you have named your objects. I called mine <code>life_expectancy_100</code>, <code>population_100</code>, and <code>income_100</code>. For some of you, learning these <code>joins</code> will be important for your project.</li>
 </ol>
 <pre class="r"><code>#gapminder_join &lt;- inner_join(life_expectancy_100, population_100, by= c(&quot;country&quot;, &quot;year&quot;))
 #gapminder_join &lt;- inner_join(gapminder_join, income_100, by= c(&quot;country&quot;, &quot;year&quot;))
