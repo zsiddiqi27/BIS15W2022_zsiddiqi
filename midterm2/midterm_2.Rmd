@@ -220,14 +220,10 @@ gapminder_join
 ```{r}
 gapminder_join %>% 
   ggplot(aes(x=income, y=life_expectancy)) + 
-  geom_point()+
-  scale_x_log10()+
-  geom_smooth(method = lm, se = F) + 
+  geom_jitter(na.rm = T) +
+  scale_x_log10() +
+  geom_smooth(method=lm, se=T) +
   labs(title = "Income vs. Life Expectancy",
        x = "Income",
        y = "Life Expectancy")
 ```
-
-
-
-
