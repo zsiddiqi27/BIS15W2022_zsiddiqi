@@ -149,6 +149,14 @@ deserts %>%
 ```
 
 10. Make one plot of your choice! Make sure to include at least two of the aesthetics options you have learned.
+```{r}
+deserts %>% 
+  filter(weight!="NA") %>% 
+  ggplot(aes(x=genus, y=weight)) +
+  geom_boxplot()+
+  geom_point(alpha=0.3, color="red", position = "jitter") +
+  coord_flip()
+```
 
 ## Push your final code to GitHub!
 Please be sure that you check the `keep md` file in the knit preferences. 
